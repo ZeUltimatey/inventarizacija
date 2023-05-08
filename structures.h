@@ -1,18 +1,18 @@
 #include <string>
 
-struct {
+struct Worker {
     std::string name;
     std::string workerSince;
-} Worker;
+};
 
-struct {
+struct Item {
     std::string name;
     std::string dateSince;
     float value;
-} Item;
+};
 
-struct {
+struct Shelf {
     int sectionX;
     int sectionY;
     int sectionZ;
-} Shelf;
+};
