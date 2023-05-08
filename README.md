@@ -1,1 +1,1 @@
-# invertazacija
+# inventarizacija
