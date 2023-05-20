@@ -8,11 +8,11 @@ struct Worker {
 struct Item {
     std::string name;
     std::string dateSince;
-    float value;
+    std::string value;
 };
 
 struct Shelf {
-    int sectionX;
-    int sectionY;
-    int sectionZ;
+    std::string sectionX;
+    std::string sectionY;
+    std::string sectionZ;
 };

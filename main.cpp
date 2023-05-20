@@ -4,31 +4,19 @@
 #include <vector>
 #include "structures.h"
 
-char f1;
 
-void select_basicString_action(std::string basicString){
+void select_basicString_action(const std::string& basicString,std::string data, std::string f1){
     system("cls");
-    std::cout << "\n";
-    std::cout << "Do you wish to write or read data?\n ";
-    std::cout << "For write press (W/w).\n ";
-    std::cout << "For read press (R/r).\n ";
-    std::cout << "If no press other letter: ";
-    std::cin >> f1;
-    if (f1 == 'W' || f1 == 'w')
+    std::string f2 = "W";
+    std::string f3 = "R";
+    if (f1 == f2)
     {
         system("cls");
-        std::string input, main_input;
-        std::cout << "\n";
-        std::cout << "Write the post: " << std::endl;
-        std::cin >> input;
-        main_input = input;
-        getline(std::cin, input);
-        main_input = main_input + input;
         std::ofstream file(basicString + ".txt");
-        file << main_input << std::endl;
+        file << data << std::endl;
         file.close();
     }
-    if (f1 == 'R' || f1 == 'r')
+    if (f1 == f3)
     {
         system("cls");
         std::cout << "\n";
@@ -42,7 +30,7 @@ void select_basicString_action(std::string basicString){
             }
             file.close();
         }
-        else std::cout << "Unable to open posts";
+        else std::cout << "Unable to open data";
     }
     system("pause");
     system("cls");
@@ -85,7 +73,6 @@ void registerUser(std::vector<User>& users) {
     User user;
     std::cout << "Enter username: ";
     std::cin >> user.username;
-    //erase(user.username, ' ');
     while (std::cin.fail() || user.username == "") {
         std::cout << "Invalid username. Please try again: ";
         std::cin.clear();
@@ -143,35 +130,77 @@ int main() {
                 if (loginUser(users)) {
                     std::cout << "Login successful!" << std::endl;
 
-                    std::cout << "Inventarizācijas sistēma" << std::endl;
-                    std::cout << "1: Veikt darbinieku uzskaiti" << std::endl;
-                    std::cout << "2: Veikt preces uzskaiti" << std::endl;
-                    std::cout << "3: Veikt plauktu uzskaiti" << std::endl;
-                    std::cout << "Izvēlieties darbību:";
+                    std::cout << "Inventory system" << std::endl;
+                    std::cout << "1: Keep records of employees" << std::endl;
+                    std::cout << "2: Keep records of goods" << std::endl;
+                    std::cout << "3: Keep records of shelves" << std::endl;
+                    std::cout << "4: Data output" << std::endl;
+                    std::cout << "Choose an action: ";
 
-                    int answer;
-                    std::cin >> answer;
-                    while (answer != 1 || answer != 2)
+                    int answer = 0;
+                    while (answer != 4)
                     {
                         std::cout << "Invalid answer" << std::endl;
                         std::cin >> answer;
-                        if (answer == 1 || answer == 2)
+                        if (answer == 1 || answer == 2|| answer == 3|| answer == 4)
                         {
                             break;
                         }
                     }
 
+                    std::string basicString;
+                    std::string data;
+
+                    std::string Worker;
+                    std::string name;
+                    std::string workerSince;
+
+                    std::string Item;
+                    std::string dateSince;
+                    std::string value;
+
+                    std::string Shelf;
+                    std::string sectionX;
+                    std::string sectionY;
+                    std::string sectionZ;
+
                     switch (answer)
                     {
                         case 1:
-                            std::cout << "Izvēlēta darbinieku uzskaite" << std::endl;
-                            // funkcija
+                            std::cout << "Selected keep records of employees" << std::endl;
+                            std::cout << "Enter the employee's first and last name: " << std::endl;
+                            std::cin >> name;
+                            std::cout << "Enter the start date format SS/MM/HH/DD/MM/YY" << std::endl;
+                            std::cin >> workerSince;
+                            data = name + "/////" + workerSince;
+                            select_basicString_action(Worker, data, "W");
+                            break;
                         case 2:
-                            std::cout << "Izvēlēta preces uzskaite" << std::endl;
-                            // funkcija
+                            std::cout << "Selected keep records of goods" << std::endl;
+                            std::cout << "Enter the transfer end time and date format SS/MM/HH/DD/MM/YY: " << std::endl;
+                            std::cin >> dateSince;
+                            std::cout << "Enter the barcode of the product: " << std::endl;
+                            std::cin >> value;
+                            data = dateSince + "/////" + value;
+                            select_basicString_action(Item, data, "W");
+                            break;
                         case 3:
-                            std::cout << "Izvēlēta plauktu uzskaite" << std::endl;
-                            // funkcija
+                            std::cout << "Selected keep records of shelves" << std::endl;
+                            std::cout << "Enter a row of sections for the shelf: " << std::endl;
+                            std::cin >> sectionX;
+                            std::cout << "Enter the vertical row for the shelf: " << std::endl;
+                            std::cin >> sectionY;
+                            std::cout << "Enter the horizontal row for the shelf: " << std::endl;
+                            std::cin >> sectionZ;
+                            data = sectionX + "/////" + sectionY+ "/////" + sectionZ;
+                            select_basicString_action(Shelf, data, "W");
+                            break;
+                        case 4:
+                            std::cout << "Selected data output" << std::endl;
+                            select_basicString_action(Worker, data, "R");
+                            select_basicString_action(Item, data, "R");
+                            select_basicString_action(Shelf, data, "R");
+                            break;
                         default:
                             std::cout << "Invalid choice" << std::endl;
                             break;
