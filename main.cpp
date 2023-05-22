@@ -144,7 +144,7 @@ struct User {
 };
 //Login system --v
 void writeUsersToFile(const std::vector<User>& users) {
-    std::ofstream file("users.txt");
+    std::ofstream file("users.txt", std::ios::out);
     if (file.is_open()) {
         for (const User& user : users) {
             file << user.username << "|||" << user.password << std::endl;
@@ -155,7 +155,7 @@ void writeUsersToFile(const std::vector<User>& users) {
 
 std::vector<User> readUsersFromFile() {
     std::vector<User> users;
-    std::ifstream file("users.txt");
+    std::ifstream file("users.txt", std::ios::in);
     if (file.is_open()) {
         std::string line;
         while (getline(file, line)) {
