@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/User/Desktop/inventarizacija-main/main.cpp" "CMakeFiles/inventarizacija.dir/main.cpp.obj" "gcc" "CMakeFiles/inventarizacija.dir/main.cpp.obj.d"
+  "C:/Users/edijs/Documents/GitHub/inventarizacija/main.cpp" "CMakeFiles/inventarizacija.dir/main.cpp.obj" "gcc" "CMakeFiles/inventarizacija.dir/main.cpp.obj.d"
   )
 
 # Targets to which this target links.

@@ -5,7 +5,7 @@
 
 
 int SecondScreen() {
-    std::cout << "================= INVENTORY MANAGMENT SYSTEM =================" << std::endl;
+    std::cout << "================= INVENTORY MANAGEMENT SYSTEM =================" << std::endl;
     std::cout << "1: Manage database..." << std::endl;
     std::cout << "2: Search/Filter options..." << std::endl;
     std::cout << "3: Display..." << std::endl;
@@ -143,11 +143,11 @@ struct User {
     std::string password;
 };
 //Login system --v
-void writeUsersToFile(std::vector<User> users) {
+void writeUsersToFile(const std::vector<User>& users) {
     std::ofstream file("users.txt");
     if (file.is_open()) {
-        for (User user : users) {
-            file << user.username << "coconut.png" << user.password << std::endl;
+        for (const User& user : users) {
+            file << user.username << "|||" << user.password << std::endl;
         }
         file.close();
     }
@@ -160,7 +160,7 @@ std::vector<User> readUsersFromFile() {
         std::string line;
         while (getline(file, line)) {
             User user;
-            int spaceIndex = line.find("coconut.png");
+            int spaceIndex = line.find("|||");
             user.username = line.substr(0, spaceIndex);
             user.password = line.substr(spaceIndex + 1);
             users.push_back(user);
@@ -174,8 +174,8 @@ void registerUser(std::vector<User>& users) {
     User user;
     std::cout << "Enter username: ";
     std::cin >> user.username;
-    //erase(user.username, ' ');
-    while (std::cin.fail() || user.username == "") {
+    erase(user.username, ' ');
+    while (std::cin.fail() || user.username.empty()) {
         std::cout << "Invalid username. Please try again: ";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
@@ -183,13 +183,14 @@ void registerUser(std::vector<User>& users) {
     }
     std::cout << "Enter password: ";
     std::cin >> user.password;
-    while (std::cin.fail() || user.password == "") {
+    erase(user.password, ' ');
+    while (std::cin.fail() || user.password.empty()) {
         std::cout << "Invalid password. Please try again: ";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
         std::cin >> user.password;
     }
-    for (User u : users) {
+    for (const User& u : users) {
         if (u.username == user.username) {
             std::cout << "Username already exists. Please choose a different username." << std::endl;
             return;
@@ -201,13 +202,13 @@ void registerUser(std::vector<User>& users) {
 }
 
 
-bool loginUser(std::vector<User> users) {
+bool loginUser(const std::vector<User>& users) {
     std::string username, password;
     std::cout << "Enter username: ";
     std::cin >> username;
     std::cout << "Enter password: ";
     std::cin >> password;
-    for (User user : users) {
+    for (const User& user : users) {
         if (user.username == username && user.password == password) {
             return true;
         }
@@ -413,7 +414,7 @@ int main() {
                                             goto add_to_database;
 
                                         }case 4:
-                                            goto second_screen;
+                                            goto login_screen;
                                         default:
                                             std::cout << "Invalid selection" << std::endl;
                                             goto add_to_database;
