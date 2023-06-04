@@ -151,30 +151,33 @@ std::string spaceFormat(int number)
 }
 
 
-Worker searchWorkerByID(const std::vector<Worker>& Workers, int id) {
+Worker searchWorkerByID(const std::vector<Worker>& Workers, std::string id) {
     for (const auto& Worker : Workers) {
         if (Worker.getID() == id) {
             return Worker;
         }
     }
+    return Worker("", "", "", "");
 }
 
 // Function to search for an item by ID
-Item searchItemByID(const std::vector<Item>& items, int id) {
+Item searchItemByID(const std::vector<Item>& items, std::string id) {
     for (const auto& item : items) {
         if (item.getID() == id) {
             return item;
         }
     }
+    return Item("", "", "", "", "", "");
 }
 
 // Function to search for a shelf by ID
-Shelf searchShelfByID(const std::vector<Shelf>& shelves, int id) {
+Shelf searchShelfByID(const std::vector<Shelf>& shelves, std::string id) {
     for (const auto& shelf : shelves) {
         if (shelf.getID() == id) {
             return shelf;
         }
     }
+    return Shelf("", "", "", "");
 }
 
 
@@ -529,12 +532,12 @@ int main()
                                         search.find("worker") != std::string::npos) {
                                         std::cout << "TABLEWORKER" << std::endl;
                                         // Perform a search
-                                        int searchID;
+                                        std::string searchID;
                                         std::cout << "Enter the ID to search: ";
                                         std::cin >> searchID;
                                         // Search for a worker
                                         Worker foundWorker = searchWorkerByID(workers, searchID);
-                                        if (foundWorker.getID() != -1) {
+                                        if (foundWorker.getID() != "") {
                                             std::cout << "Worker found: " << foundWorker.getName() << std::endl;
                                         }
                                         else {
@@ -546,12 +549,12 @@ int main()
                                                search.find("item") != std::string::npos) {
                                         std::cout << "TABLEITEM" << std::endl;
                                         // Perform a search
-                                        int searchID;
+                                        std::string searchID;
                                         std::cout << "Enter the ID to search: ";
                                         std::cin >> searchID;
                                         // Search for an item
                                         Item foundItem = searchItemByID(items, searchID);
-                                        if (foundItem.getID() != -1) {
+                                        if (foundItem.getID() != "") {
                                             std::cout << "Item found: " << foundItem.getName() << std::endl;
                                         }
                                         else {
@@ -563,12 +566,12 @@ int main()
                                                search.find("shelf") != std::string::npos) {
                                         std::cout << "TABLESHELF" << std::endl;
                                         // Perform a search
-                                        int searchID;
+                                        std::string searchID;
                                         std::cout << "Enter the ID to search: ";
                                         std::cin >> searchID;
                                         // Search for a shelf
                                         Shelf foundShelf = searchShelfByID(shelves, searchID);
-                                        if (foundShelf.getID() != -1) {
+                                        if (foundShelf.getID() != "") {
                                             std::cout << "Shelf found: " << foundShelf.getID() << std::endl;
                                         }
                                         else {

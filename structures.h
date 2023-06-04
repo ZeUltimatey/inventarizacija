@@ -11,16 +11,16 @@ struct User {
 // Worker class
 class Worker {
 public:
-    int id;
+    std::string id;
     std::string name;
     std::string surname;
     std::string hiringDate;
 
     // Constructor
-    Worker(int id, std::string name, std::string surname, std::string hiringDate)
+    Worker(std::string id, std::string name, std::string surname, std::string hiringDate)
             : id(id), name(std::move(name)), surname(std::move(surname)), hiringDate(std::move(hiringDate)) {}
 
-    int getID() const {
+    std::string getID() const {
         return id;
     }
 
@@ -41,18 +41,18 @@ public:
 // Item class
 class Item {
 public:
-    int id;
+    std::string id;
     std::string name;
-    int workerID;
+    std::string workerID;
     std::string price;
-    int shelfID;
+    std::string shelfID;
     std::string quantity;
 
     // Constructor
-    Item(int id, std::string name, int workerID, std::string price, int shelfID, std::string quantity)
+    Item(std::string id, std::string name, std::string workerID, std::string price, std::string shelfID, std::string quantity)
             : id(id), name(std::move(name)), workerID(workerID), price(price), shelfID(shelfID), quantity(quantity) {}
 
-    int getID() const {
+    std::string getID() const {
         return id;
     }
 
@@ -60,7 +60,7 @@ public:
         return name;
     }
 
-    int getWorkerID() const {
+    std::string getWorkerID() const {
         return workerID;
     }
 
@@ -68,7 +68,7 @@ public:
         return price;
     }
 
-    int getShelfID() const {
+    std::string getShelfID() const {
         return shelfID;
     }
 
@@ -81,16 +81,16 @@ public:
 // Shelf class
 class Shelf {
 public:
-    int id;
+    std::string id;
     std::string locationX;
     std::string locationY;
     std::string locationZ;
 
     // Constructor
-    Shelf(int id, std::string locationX, std::string locationY, std::string locationZ)
+    Shelf(std::string id, std::string locationX, std::string locationY, std::string locationZ)
             : id(id), locationX(std::move(locationX)), locationY(std::move(locationY)), locationZ(std::move(locationZ)) {}
 
-    int getID() const {
+    std::string getID() const {
         return id;
     }
 
@@ -118,7 +118,7 @@ void readWorkersFromFile(const std::string& filename, std::vector<Worker>& worke
     std::getline(file, line); // Skip the header line
 
     while (std::getline(file, line)) {
-        Worker worker(0, "", "", "");
+        Worker worker("", "", "", "");
         std::string id, name, surname, hiringDate;
 
         // Extract data from the line using appropriate delimiters
@@ -139,7 +139,7 @@ void readWorkersFromFile(const std::string& filename, std::vector<Worker>& worke
         hiringDate = line.substr(start, end - start);
 
         // Convert necessary data types
-        worker.id = std::stoi(id);
+        worker.id = id;
         worker.name = name;
         worker.surname = surname;
         worker.hiringDate = hiringDate;
@@ -162,7 +162,7 @@ void readItemFromFile(const std::string& filename, std::vector<Item>& items) {
     std::getline(file, line); // Skip the header line
 
     while (std::getline(file, line)) {
-        Item item(0, "", 0, "", 0, "");
+        Item item("", "", "", "", "", "");
         std::string id, name, workerID, price, shelfID, quantity;
 
         // Extract data from the line using appropriate delimiters
@@ -191,11 +191,11 @@ void readItemFromFile(const std::string& filename, std::vector<Item>& items) {
         quantity = line.substr(start, end - start);
 
         // Convert necessary data types
-        item.id = std::stoi(id);
+        item.id = id;
         item.name = name;
-        item.workerID = std::stoi(workerID);
+        item.workerID = workerID;
         item.price = price;
-        item.shelfID = std::stoi(shelfID);
+        item.shelfID = shelfID;
         item.quantity = quantity;
 
 
@@ -217,7 +217,7 @@ void readShelfFromFile(const std::string& filename, std::vector<Shelf>& shelfs) 
     std::getline(file, line); // Skip the header line
 
     while (std::getline(file, line)) {
-        Shelf shelf(0, "", "", "");
+        Shelf shelf("", "", "", "");
         std::string id, locationX, locationY, locationZ;
 
         // Extract data from the line using appropriate delimiters
@@ -238,7 +238,7 @@ void readShelfFromFile(const std::string& filename, std::vector<Shelf>& shelfs) 
         locationZ = line.substr(start, end - start);
 
         // Convert necessary data types
-        shelf.id = std::stoi(id);
+        shelf.id = id;
         shelf.locationX = locationX;
         shelf.locationY = locationY;
         shelf.locationZ = locationZ;
