@@ -8,7 +8,6 @@ struct User {
     std::string password;
 };
 
-
 // Worker class
 class Worker {
 private:
@@ -22,7 +21,6 @@ public:
     Worker(int id, std::string name, std::string surname, std::string hiringDate)
             : id(id), name(std::move(name)), surname(std::move(surname)), hiringDate(std::move(hiringDate)) {}
 
-    // Getter functions
     int getID() const {
         return id;
     }
@@ -38,23 +36,24 @@ public:
     std::string getHiringDate() const {
         return hiringDate;
     }
-};
 
+};
 
 // Item class
 class Item {
 private:
     int id;
     std::string name;
-    int quantity;
+    int workerID;
     double price;
+    int shelfID;
+    int quantity;
 
 public:
     // Constructor
-    Item(int id, std::string name, int quantity, double price)
-            : id(id), name(std::move(name)), quantity(quantity), price(price) {}
+    Item(int id, std::string name, int workerID, double price, int shelfID, int quantity)
+            : id(id), name(std::move(name)), workerID(workerID), price(price), shelfID(shelfID), quantity(quantity) {}
 
-    // Getter functions
     int getID() const {
         return id;
     }
@@ -63,34 +62,51 @@ public:
         return name;
     }
 
-    int getQuantity() const {
-        return quantity;
+    int getWorkerID() const {
+        return workerID;
     }
 
     double getPrice() const {
         return price;
     }
-};
 
+    int getShelfID() const {
+        return shelfID;
+    }
+
+    int getQuantity() const {
+        return quantity;
+    }
+
+};
 
 // Shelf class
 class Shelf {
 private:
     int id;
-    std::string location;
+    std::string locationX;
+    std::string locationY;
+    std::string locationZ;
 
 public:
     // Constructor
-    Shelf(int id, std::string location)
-            : id(id), location(std::move(location)) {}
+    Shelf(int id, std::string locationX, std::string locationY, std::string locationZ)
+            : id(id), locationX(std::move(locationX)), locationY(std::move(locationY)), locationZ(std::move(locationZ)) {}
 
-    // Getter functions
     int getID() const {
         return id;
     }
 
-    std::string getLocation() const {
-        return location;
+    std::string getLocationX() const {
+        return locationX;
+    }
+
+    std::string getLocationY() const {
+        return locationY;
+    }
+
+    std::string getLocationZ() const {
+        return locationZ;
     }
 };
 
@@ -108,7 +124,6 @@ void generateSummaryWorker(const std::vector<Worker>& Workers) {
     }
 }
 
-
 void generateSummaryItem(const std::vector<Item>& items) {
     std::cout << "Summary of the Item Database:" << std::endl;
     // Summary for the Item table
@@ -116,8 +131,10 @@ void generateSummaryItem(const std::vector<Item>& items) {
     for (const Item& item : items) {
         std::cout << "Item ID: " << item.getID() << std::endl;
         std::cout << "Name: " << item.getName() << std::endl;
-        std::cout << "Quantity: " << item.getQuantity() << std::endl;
+        std::cout << "Worker ID: " << item.getWorkerID() << std::endl;
         std::cout << "Price: " << item.getPrice() << std::endl;
+        std::cout << "Shelf ID: " << item.getShelfID() << std::endl;
+        std::cout << "Quantity: " << item.getQuantity() << std::endl;
         std::cout << std::endl;
     }
 }
@@ -128,11 +145,12 @@ void generateSummaryShelf(const std::vector<Shelf>& shelves) {
     std::cout << "Shelves:" << std::endl;
     for (const Shelf& shelf : shelves) {
         std::cout << "Shelf ID: " << shelf.getID() << std::endl;
-        std::cout << "Location: " << shelf.getLocation() << std::endl;
+        std::cout << "LocationX: " << shelf.getLocationX() << std::endl;
+        std::cout << "LocationY: " << shelf.getLocationY() << std::endl;
+        std::cout << "LocationZ: " << shelf.getLocationZ() << std::endl;
         std::cout << std::endl;
     }
 }
-
 
 bool fileExists (const std::string& name) {
     if (FILE *file = fopen(name.c_str(), "r")) {
@@ -181,7 +199,6 @@ void createFile(const std::string name) {
         }
     }
 };
-
 
 void inputToFile(std::string fileName, std::string query) {
     add_to_file:
@@ -254,7 +271,6 @@ void displayDatabase(std::string fileName) {
     }
 }
 
-
 void writeUsersToFile(const std::vector<User>& users) {
     std::ofstream file("users.txt", std::ios::out);
     if (file.is_open()) {
@@ -312,7 +328,6 @@ void registerUser(std::vector<User>& users) {
     writeUsersToFile(users);
     std::cout << "Registration successful!" << std::endl;
 }
-
 
 bool loginUser(const std::vector<User>& users) {
     std::string username, password;

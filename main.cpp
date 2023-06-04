@@ -151,9 +151,39 @@ std::string spaceFormat(int number)
 }
 
 
+Worker searchWorkerByID(const std::vector<Worker>& Workers, int id) {
+    for (const auto& Worker : Workers) {
+        if (Worker.getID() == id) {
+            return Worker;
+        }
+    }
+}
+
+// Function to search for an item by ID
+Item searchItemByID(const std::vector<Item>& items, int id) {
+    for (const auto& item : items) {
+        if (item.getID() == id) {
+            return item;
+        }
+    }
+}
+
+// Function to search for a shelf by ID
+Shelf searchShelfByID(const std::vector<Shelf>& shelves, int id) {
+    for (const auto& shelf : shelves) {
+        if (shelf.getID() == id) {
+            return shelf;
+        }
+    }
+}
+
+
 int main()
 {
     std::vector<User> users = readUsersFromFile();
+    std::vector<Worker> workers;
+    std::vector<Item> items;
+    std::vector<Shelf> shelves;
     login_screen:
     switch (LoginScreen())
     {
@@ -495,16 +525,52 @@ int main()
                                         search.find("WORKER") != std::string::npos or
                                         search.find("worker") != std::string::npos) {
                                         std::cout << "TABLEWORKER" << std::endl;
+                                        // Perform a search
+                                        int searchID;
+                                        std::cout << "Enter the ID to search: ";
+                                        std::cin >> searchID;
+                                        // Search for a worker
+                                        Worker foundWorker = searchWorkerByID(workers, searchID);
+                                        if (foundWorker.getID() != -1) {
+                                            std::cout << "Worker found: " << foundWorker.getName() << std::endl;
+                                        }
+                                        else {
+                                            std::cout << "Worker not found." << std::endl;
+                                        }
                                         goto search_in;
                                     } else if (search.find("Item") != std::string::npos or
                                                search.find("ITEM") != std::string::npos or
                                                search.find("item") != std::string::npos) {
                                         std::cout << "TABLEITEM" << std::endl;
+                                        // Perform a search
+                                        int searchID;
+                                        std::cout << "Enter the ID to search: ";
+                                        std::cin >> searchID;
+                                        // Search for an item
+                                        Item foundItem = searchItemByID(items, searchID);
+                                        if (foundItem.getID() != -1) {
+                                            std::cout << "Item found: " << foundItem.getName() << std::endl;
+                                        }
+                                        else {
+                                            std::cout << "Item not found." << std::endl;
+                                        }
                                         goto search_in;
                                     } else if (search.find("Shelf") != std::string::npos or
                                                search.find("SHELF") != std::string::npos or
                                                search.find("shelf") != std::string::npos) {
                                         std::cout << "TABLESHELF" << std::endl;
+                                        // Perform a search
+                                        int searchID;
+                                        std::cout << "Enter the ID to search: ";
+                                        std::cin >> searchID;
+                                        // Search for a shelf
+                                        Shelf foundShelf = searchShelfByID(shelves, searchID);
+                                        if (foundShelf.getID() != -1) {
+                                            std::cout << "Shelf found: " << foundShelf.getID() << std::endl;
+                                        }
+                                        else {
+                                            std::cout << "Shelf not found." << std::endl;
+                                        }
                                         goto search_in;
                                     } else if (search.find("Cancel") != std::string::npos or
                                                search.find("CANCEL") != std::string::npos or
