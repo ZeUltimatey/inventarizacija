@@ -182,8 +182,11 @@ int main()
 {
     std::vector<User> users = readUsersFromFile();
     std::vector<Worker> workers;
+    readWorkersFromFile("worker.TXT", workers);
     std::vector<Item> items;
+    readItemFromFile("item.TXT", items);
     std::vector<Shelf> shelves;
+    readShelfFromFile("shelf.TXT", shelves);
     login_screen:
     switch (LoginScreen())
     {

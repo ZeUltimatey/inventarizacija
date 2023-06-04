@@ -10,13 +10,12 @@ struct User {
 
 // Worker class
 class Worker {
-private:
+public:
     int id;
     std::string name;
     std::string surname;
     std::string hiringDate;
 
-public:
     // Constructor
     Worker(int id, std::string name, std::string surname, std::string hiringDate)
             : id(id), name(std::move(name)), surname(std::move(surname)), hiringDate(std::move(hiringDate)) {}
@@ -41,17 +40,16 @@ public:
 
 // Item class
 class Item {
-private:
+public:
     int id;
     std::string name;
     int workerID;
-    double price;
+    std::string price;
     int shelfID;
-    int quantity;
+    std::string quantity;
 
-public:
     // Constructor
-    Item(int id, std::string name, int workerID, double price, int shelfID, int quantity)
+    Item(int id, std::string name, int workerID, std::string price, int shelfID, std::string quantity)
             : id(id), name(std::move(name)), workerID(workerID), price(price), shelfID(shelfID), quantity(quantity) {}
 
     int getID() const {
@@ -66,7 +64,7 @@ public:
         return workerID;
     }
 
-    double getPrice() const {
+    std::string getPrice() const {
         return price;
     }
 
@@ -74,7 +72,7 @@ public:
         return shelfID;
     }
 
-    int getQuantity() const {
+    std::string getQuantity() const {
         return quantity;
     }
 
@@ -82,13 +80,12 @@ public:
 
 // Shelf class
 class Shelf {
-private:
+public:
     int id;
     std::string locationX;
     std::string locationY;
     std::string locationZ;
 
-public:
     // Constructor
     Shelf(int id, std::string locationX, std::string locationY, std::string locationZ)
             : id(id), locationX(std::move(locationX)), locationY(std::move(locationY)), locationZ(std::move(locationZ)) {}
@@ -110,6 +107,148 @@ public:
     }
 };
 
+void readWorkersFromFile(const std::string& filename, std::vector<Worker>& workers) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cout << "Failed to open the file." << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::getline(file, line); // Skip the header line
+
+    while (std::getline(file, line)) {
+        Worker worker(0, "", "", "");
+        std::string id, name, surname, hiringDate;
+
+        // Extract data from the line using appropriate delimiters
+        std::size_t start = line.find("||") + 2;
+        std::size_t end = line.find("||", start);
+        id = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        name = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        surname = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        hiringDate = line.substr(start, end - start);
+
+        // Convert necessary data types
+        worker.id = std::stoi(id);
+        worker.name = name;
+        worker.surname = surname;
+        worker.hiringDate = hiringDate;
+
+        // Add the worker to the vector
+        workers.push_back(worker);
+    }
+
+    file.close();
+}
+
+void readItemFromFile(const std::string& filename, std::vector<Item>& items) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cout << "Failed to open the file." << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::getline(file, line); // Skip the header line
+
+    while (std::getline(file, line)) {
+        Item item(0, "", 0, "", 0, "");
+        std::string id, name, workerID, price, shelfID, quantity;
+
+        // Extract data from the line using appropriate delimiters
+        std::size_t start = line.find("||") + 2;
+        std::size_t end = line.find("||", start);
+        id = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        name = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        workerID = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        price = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        shelfID = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        quantity = line.substr(start, end - start);
+
+        // Convert necessary data types
+        item.id = std::stoi(id);
+        item.name = name;
+        item.workerID = std::stoi(workerID);
+        item.price = price;
+        item.shelfID = std::stoi(shelfID);
+        item.quantity = quantity;
+
+
+        // Add the worker to the vector
+        items.push_back(item);
+    }
+
+    file.close();
+}
+
+void readShelfFromFile(const std::string& filename, std::vector<Shelf>& shelfs) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cout << "Failed to open the file." << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::getline(file, line); // Skip the header line
+
+    while (std::getline(file, line)) {
+        Shelf shelf(0, "", "", "");
+        std::string id, locationX, locationY, locationZ;
+
+        // Extract data from the line using appropriate delimiters
+        std::size_t start = line.find("||") + 2;
+        std::size_t end = line.find("||", start);
+        id = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        locationX = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        locationY = line.substr(start, end - start);
+
+        start = end + 2;
+        end = line.find("||", start);
+        locationZ = line.substr(start, end - start);
+
+        // Convert necessary data types
+        shelf.id = std::stoi(id);
+        shelf.locationX = locationX;
+        shelf.locationY = locationY;
+        shelf.locationZ = locationZ;
+
+        // Add the worker to the vector
+        shelfs.push_back(shelf);
+    }
+
+    file.close();
+}
 
 void generateSummaryWorker(const std::vector<Worker>& Workers) {
     std::cout << "Summary of the Worker Database:" << std::endl;
