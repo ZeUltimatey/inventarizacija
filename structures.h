@@ -414,27 +414,10 @@ void writeUsersToFile(const std::vector<User>& users) {
     std::ofstream file("users.txt", std::ios::out);
     if (file.is_open()) {
         for (const User& user : users) {
-            file << user.username << "|||" << user.password << std::endl;
+            file << user.username << "||" << user.password << std::endl;
         }
         file.close();
     }
-}
-
-std::vector<User> readUsersFromFile() {
-    std::vector<User> users;
-    std::ifstream file("users.txt", std::ios::in);
-    if (file.is_open()) {
-        std::string line;
-        while (getline(file, line)) {
-            User user;
-            int spaceIndex = line.find("|||");
-            user.username = line.substr(0, spaceIndex);
-            user.password = line.substr(spaceIndex + 1);
-            users.push_back(user);
-        }
-        file.close();
-    }
-    return users;
 }
 
 void registerUser(std::vector<User>& users) {

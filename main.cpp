@@ -180,17 +180,34 @@ Shelf searchShelfByID(const std::vector<Shelf>& shelves, std::string id) {
     return Shelf("", "", "", "");
 }
 
+std::vector<User> readUsersFromFile() {
+    std::vector<User> users;
+    std::ifstream file("users.txt", std::ios::in);
+    if (file.is_open()) {
+        std::string line;
+        while (getline(file, line)) {
+            User user;
+            int spaceIndex = line.find("||");
+            user.username = line.substr(0, spaceIndex);
+            user.password = line.substr(spaceIndex + 1);
+            users.push_back(user);
+        }
+        file.close();
+    }
+    return users;
+}
 
 int main()
 {
     std::vector<User> users = readUsersFromFile();
     std::vector<Worker> workers;
-    readWorkersFromFile("worker.TXT", workers);
+    readWorkersFromFile("worker.txt", workers);
     std::vector<Item> items;
-    readItemFromFile("item.TXT", items);
+    readItemFromFile("item.txt", items);
     std::vector<Shelf> shelves;
-    readShelfFromFile("shelf.TXT", shelves);
+    readShelfFromFile("shelf.txt", shelves);
     login_screen:
+    system("pause");
     system("cls");
     switch (LoginScreen())
     {
@@ -202,14 +219,17 @@ int main()
             {
                 std::cout << "Login successful!" << std::endl;
                 second_screen:
+                system("pause");
                 system("cls");
                 switch (SecondScreen())
                     {
                         case 1: {// User selected manage database
+                            system("pause");
                             system("cls");
                             switch (ManageDatabaseScreen()) {
                                 case 1:
                                 add_to_database:
+                                    system("pause");
                                     system("cls");
                                     switch (AddToDatabaseScreen()) {
                                         case 1: { // ====================== WORKER TABLE ===============================
@@ -406,6 +426,7 @@ int main()
                                     }
                                 case 2:
                                 delete_from_database:
+                                    system("pause");
                                     system("cls");
                                     switch (DeleteFromDatabaseScreen()) {
                                         case 1: {
@@ -491,6 +512,7 @@ int main()
                             }
                         }
                         case 2: { // User chose Search/Filter
+                            system("pause");
                             system("cls");
                             switch (SearchOrFilterScreen()) {
                                 case 1: {
@@ -600,6 +622,7 @@ int main()
                         }
                         case 3:
                         { // User chose Display
+                            system("pause");
                             system("cls");
                             switch (DisplayTableScreen()) {
                                 case 1: {
