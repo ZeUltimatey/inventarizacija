@@ -191,6 +191,7 @@ int main()
     std::vector<Shelf> shelves;
     readShelfFromFile("shelf.TXT", shelves);
     login_screen:
+    system("cls");
     switch (LoginScreen())
     {
         case 1:
@@ -201,13 +202,15 @@ int main()
             {
                 std::cout << "Login successful!" << std::endl;
                 second_screen:
-
+                system("cls");
                 switch (SecondScreen())
                     {
                         case 1: {// User selected manage database
+                            system("cls");
                             switch (ManageDatabaseScreen()) {
                                 case 1:
                                 add_to_database:
+                                    system("cls");
                                     switch (AddToDatabaseScreen()) {
                                         case 1: { // ====================== WORKER TABLE ===============================
                                             std::cout << "WRITE TO WORKER TABLE (MAX QUERY LENGTH 22 CHAR)"
@@ -403,6 +406,7 @@ int main()
                                     }
                                 case 2:
                                 delete_from_database:
+                                    system("cls");
                                     switch (DeleteFromDatabaseScreen()) {
                                         case 1: {
                                             std::cout << "DELETE FROM WORKER" << std::endl;
@@ -487,6 +491,7 @@ int main()
                             }
                         }
                         case 2: { // User chose Search/Filter
+                            system("cls");
                             switch (SearchOrFilterScreen()) {
                                 case 1: {
                                     filter_in:
@@ -595,6 +600,7 @@ int main()
                         }
                         case 3:
                         { // User chose Display
+                            system("cls");
                             switch (DisplayTableScreen()) {
                                 case 1: {
                                     display_table:
