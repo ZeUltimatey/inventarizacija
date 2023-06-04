@@ -1,6 +1,139 @@
 #include <string>
 #include <fstream>
 
+
+// User class
+struct User {
+    std::string username;
+    std::string password;
+};
+
+
+// Worker class
+class Worker {
+private:
+    int id;
+    std::string name;
+    std::string surname;
+    std::string hiringDate;
+
+public:
+    // Constructor
+    Worker(int id, std::string name, std::string surname, std::string hiringDate)
+            : id(id), name(std::move(name)), surname(std::move(surname)), hiringDate(std::move(hiringDate)) {}
+
+    // Getter functions
+    int getID() const {
+        return id;
+    }
+
+    std::string getName() const {
+        return name;
+    }
+
+    std::string getSurname() const {
+        return surname;
+    }
+
+    std::string getHiringDate() const {
+        return hiringDate;
+    }
+};
+
+
+// Item class
+class Item {
+private:
+    int id;
+    std::string name;
+    int quantity;
+    double price;
+
+public:
+    // Constructor
+    Item(int id, std::string name, int quantity, double price)
+            : id(id), name(std::move(name)), quantity(quantity), price(price) {}
+
+    // Getter functions
+    int getID() const {
+        return id;
+    }
+
+    std::string getName() const {
+        return name;
+    }
+
+    int getQuantity() const {
+        return quantity;
+    }
+
+    double getPrice() const {
+        return price;
+    }
+};
+
+
+// Shelf class
+class Shelf {
+private:
+    int id;
+    std::string location;
+
+public:
+    // Constructor
+    Shelf(int id, std::string location)
+            : id(id), location(std::move(location)) {}
+
+    // Getter functions
+    int getID() const {
+        return id;
+    }
+
+    std::string getLocation() const {
+        return location;
+    }
+};
+
+
+void generateSummaryWorker(const std::vector<Worker>& Workers) {
+    std::cout << "Summary of the Worker Database:" << std::endl;
+    // Summary for the Worker table
+    std::cout << "Workers:" << std::endl;
+    for (const Worker& Worker : Workers) {
+        std::cout << "Worker ID: " << Worker.getID() << std::endl;
+        std::cout << "Name: " << Worker.getName() << std::endl;
+        std::cout << "Surname: " << Worker.getSurname() << std::endl;
+        std::cout << "Hiring Date: " << Worker.getHiringDate() << std::endl;
+        std::cout << std::endl;
+    }
+}
+
+
+void generateSummaryItem(const std::vector<Item>& items) {
+    std::cout << "Summary of the Item Database:" << std::endl;
+    // Summary for the Item table
+    std::cout << "Items:" << std::endl;
+    for (const Item& item : items) {
+        std::cout << "Item ID: " << item.getID() << std::endl;
+        std::cout << "Name: " << item.getName() << std::endl;
+        std::cout << "Quantity: " << item.getQuantity() << std::endl;
+        std::cout << "Price: " << item.getPrice() << std::endl;
+        std::cout << std::endl;
+    }
+}
+
+void generateSummaryShelf(const std::vector<Shelf>& shelves) {
+    std::cout << "Summary of the Shelf Database:" << std::endl;
+    // Summary for the Shelf table
+    std::cout << "Shelves:" << std::endl;
+    for (const Shelf& shelf : shelves) {
+        std::cout << "Shelf ID: " << shelf.getID() << std::endl;
+        std::cout << "Location: " << shelf.getLocation() << std::endl;
+        std::cout << std::endl;
+    }
+}
+
+
 bool fileExists (const std::string& name) {
     if (FILE *file = fopen(name.c_str(), "r")) {
         fclose(file);
@@ -119,6 +252,78 @@ void displayDatabase(std::string fileName) {
     else {
         std::cout << "Error: table doesn't exist" << std::endl;
     }
+}
 
 
+void writeUsersToFile(const std::vector<User>& users) {
+    std::ofstream file("users.txt", std::ios::out);
+    if (file.is_open()) {
+        for (const User& user : users) {
+            file << user.username << "|||" << user.password << std::endl;
+        }
+        file.close();
+    }
+}
+
+std::vector<User> readUsersFromFile() {
+    std::vector<User> users;
+    std::ifstream file("users.txt", std::ios::in);
+    if (file.is_open()) {
+        std::string line;
+        while (getline(file, line)) {
+            User user;
+            int spaceIndex = line.find("|||");
+            user.username = line.substr(0, spaceIndex);
+            user.password = line.substr(spaceIndex + 1);
+            users.push_back(user);
+        }
+        file.close();
+    }
+    return users;
+}
+
+void registerUser(std::vector<User>& users) {
+    User user;
+    std::cout << "Enter username: ";
+    std::cin >> user.username;
+    erase(user.username, ' ');
+    while (std::cin.fail() || user.username.empty()) {
+        std::cout << "Invalid username. Please try again: ";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        std::cin >> user.username;
+    }
+    std::cout << "Enter password: ";
+    std::cin >> user.password;
+    erase(user.password, ' ');
+    while (std::cin.fail() || user.password.empty()) {
+        std::cout << "Invalid password. Please try again: ";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        std::cin >> user.password;
+    }
+    for (const User& u : users) {
+        if (u.username == user.username) {
+            std::cout << "Username already exists. Please choose a different username." << std::endl;
+            return;
+        }
+    }
+    users.push_back(user);
+    writeUsersToFile(users);
+    std::cout << "Registration successful!" << std::endl;
+}
+
+
+bool loginUser(const std::vector<User>& users) {
+    std::string username, password;
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+    for (const User& user : users) {
+        if (user.username == username && user.password == password) {
+            return true;
+        }
+    }
+    return false;
 }
