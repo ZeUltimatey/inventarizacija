@@ -562,3 +562,57 @@ std::vector<Shelf> filterShelfsByLocationZ(const std::vector<Shelf>& shelfs, int
     }
     return filteredItems;
 }
+
+void sortWorkers(std::vector<Worker>& workers, const std::string& sortField) {
+    if (sortField == "name") {
+        std::sort(workers.begin(), workers.end(), [](const Worker& a, const Worker& b) {
+            return a.name < b.name;
+        });
+    } else if (sortField == "age") {
+        std::sort(workers.begin(), workers.end(), [](const Worker& a, const Worker& b) {
+            return a.surname < b.surname;
+        });
+    } else if (sortField == "Hiring date") {
+        std::sort(workers.begin(), workers.end(), [](const Worker& a, const Worker& b) {
+            return a.hiringDate < b.hiringDate;
+        });
+    } else {
+        std::cout << "Invalid sort field!" << std::endl;
+    }
+}
+
+void sortItems(std::vector<Item>& items, const std::string& sortField) {
+    if (sortField == "name") {
+        std::sort(items.begin(), items.end(), [](const Item& a, const Item& b) {
+            return a.name < b.name;
+        });
+    } else if (sortField == "price") {
+        std::sort(items.begin(), items.end(), [](const Item& a, const Item& b) {
+            return a.price < b.price;
+        });
+    } else if (sortField == "quantity") {
+        std::sort(items.begin(), items.end(), [](const Item& a, const Item& b) {
+            return a.quantity < b.quantity;
+        });
+    } else {
+        std::cout << "Invalid sort field!" << std::endl;
+    }
+}
+
+void sortShelfs(std::vector<Shelf>& shelfs, const std::string& sortField) {
+    if (sortField == "locationX") {
+        std::sort(shelfs.begin(), shelfs.end(), [](const Shelf& a, const Shelf& b) {
+            return a.locationX < b.locationX;
+        });
+    } else if (sortField == "locationY") {
+        std::sort(shelfs.begin(), shelfs.end(), [](const Shelf& a, const Shelf& b) {
+            return a.locationY < b.locationY;
+        });
+    } else if (sortField == "locationZ") {
+        std::sort(shelfs.begin(), shelfs.end(), [](const Shelf& a, const Shelf& b) {
+            return a.locationZ < b.locationZ;
+        });
+    } else {
+        std::cout << "Invalid sort field!" << std::endl;
+    }
+}

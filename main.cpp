@@ -8,7 +8,7 @@ int SecondScreen()
 {
     std::cout << "================= INVENTORY MANAGEMENT SYSTEM =================" << std::endl;
     std::cout << "1: Manage database..." << std::endl;
-    std::cout << "2: Search/Filter options..." << std::endl;
+    std::cout << "2: Search/Filter/Sort options..." << std::endl;
     std::cout << "3: Display..." << std::endl;
     std::cout << "4: Logout" << std::endl;
     std::cout << "Select your action:";
@@ -516,6 +516,8 @@ int main()
                             system("cls");
                             switch (SearchOrFilterScreen()) {
                                 case 1: {
+                                    system("pause");
+                                    system("cls");
                                     filter_in:
                                     std::cout
                                             << "Enter table to filter in (Worker/Item/Shelf) or write cancel to go back."
@@ -730,7 +732,10 @@ int main()
                                         goto filter_in;
                                     }
                                 }
+
                                 case 2: {
+                                    system("pause");
+                                    system("cls");
                                     search_in:
                                     std::cout
                                             << "Enter table to search in (Worker/Item/Shelf) or write cancel to go back."
@@ -825,6 +830,58 @@ int main()
                                     }
                                 }
                                 case 3: {
+                                    system("pause");
+                                    system("cls");
+                                    sort_in:
+                                    std::cout
+                                            << "Enter table to sort in (Worker/Item/Shelf) or write cancel to go back."
+                                            << std::endl;
+                                    std::string sort;
+                                    std::cin >> sort;
+                                    if (sort.find("Worker") != std::string::npos or
+                                            sort.find("WORKER") != std::string::npos or
+                                            sort.find("worker") != std::string::npos) {
+                                        std::cout << "TABLEWORKER" << std::endl;
+                                        std::cout << "Enter the sort field for workers (name, age, role): ";
+                                        std::string sortField;
+                                        std::cin >> sortField;
+                                        sortWorkers(workers, sortField);
+                                        goto search_in;
+
+                                    } else if (sort.find("Item") != std::string::npos or
+                                            sort.find("ITEM") != std::string::npos or
+                                            sort.find("item") != std::string::npos) {
+                                        std::cout << "TABLEITEM" << std::endl;
+                                        std::cout << "Enter the sort field for items (name, price, quantity): ";
+                                        std::string sortField;
+                                        std::cin >> sortField;
+                                        sortItems(items, sortField);
+                                        goto search_in;
+
+                                    } else if (sort.find("Shelf") != std::string::npos or
+                                            sort.find("SHELF") != std::string::npos or
+                                            sort.find("shelf") != std::string::npos) {
+                                        std::cout << "TABLESHELF" << std::endl;
+                                        std::cout << "Enter the sort field for shelfs (locationX, locationY, locationZ): ";
+                                        std::string sortField;
+                                        std::cin >> sortField;
+                                        sortShelfs(shelfs, sortField);
+                                        goto search_in;
+
+                                    } else if (sort.find("Cancel") != std::string::npos or
+                                            sort.find("CANCEL") != std::string::npos or
+                                            sort.find("cancel") != std::string::npos) {
+                                        std::cout << "Cancelling action..." << std::endl;
+                                        goto second_screen;
+
+                                    } else {
+                                        std::cout << "Invalid table" << std::endl;
+                                        goto search_in;
+                                    }
+                                }
+                                case 4: {
+                                    system("pause");
+                                    system("cls");
                                     goto second_screen;
                                 }
                             }
