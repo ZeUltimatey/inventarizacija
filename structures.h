@@ -351,30 +351,38 @@ void readItemFromFile(const std::string &filename, std::vector<Item> &items) {
         Item item("", "", "", "", "", "");
         std::string id, name, workerID, price, shelfID, quantity;
 
+
         // Extract data from the line using appropriate delimiters
         std::size_t start = line.find("||") + 2;
         std::size_t end = line.find("||", start);
         id = line.substr(start, end - start);
+        id.erase(remove(id.begin(), id.end(), ' '), id.end());
+
 
         start = end + 2;
         end = line.find("||", start);
         name = line.substr(start, end - start);
+        name.erase(remove(name.begin(), name.end(), ' '), name.end());
 
         start = end + 2;
         end = line.find("||", start);
         workerID = line.substr(start, end - start);
+        workerID.erase(remove(workerID.begin(), workerID.end(), ' '), workerID.end());
 
         start = end + 2;
         end = line.find("||", start);
         price = line.substr(start, end - start);
+        price.erase(remove(price.begin(), price.end(), ' '), price.end());
 
         start = end + 2;
         end = line.find("||", start);
         shelfID = line.substr(start, end - start);
+        shelfID.erase(remove(shelfID.begin(), shelfID.end(), ' '), shelfID.end());
 
         start = end + 2;
         end = line.find("||", start);
         quantity = line.substr(start, end - start);
+        quantity.erase(remove(quantity.begin(), quantity.end(), ' '), quantity.end());
 
         // Convert necessary data types
         item.id = id;
@@ -411,18 +419,22 @@ void readShelfFromFile(const std::string &filename, std::vector<Shelf> &shelfs) 
         std::size_t start = line.find("||") + 2;
         std::size_t end = line.find("||", start);
         id = line.substr(start, end - start);
+        id.erase(remove(id.begin(), id.end(), ' '), id.end());
 
         start = end + 2;
         end = line.find("||", start);
         locationX = line.substr(start, end - start);
+        locationX.erase(remove(locationX.begin(), locationX.end(), ' '), locationX.end());
 
         start = end + 2;
         end = line.find("||", start);
         locationY = line.substr(start, end - start);
+        locationY.erase(remove(locationY.begin(), locationY.end(), ' '), locationY.end());
 
         start = end + 2;
         end = line.find("||", start);
         locationZ = line.substr(start, end - start);
+        locationZ.erase(remove(locationZ.begin(), locationZ.end(), ' '), locationZ.end());
 
         // Convert necessary data types
         shelf.id = id;

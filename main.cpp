@@ -347,6 +347,8 @@ int main() {
 
                                         std::vector<Worker> filteredItems = filterWorkersByName(workers, name);
                                         generateSummaryWorker(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
 
                                     } else if (filterSection.find("Surname") != std::string::npos or
@@ -359,6 +361,8 @@ int main() {
 
                                         std::vector<Worker> filteredItems = filterWorkersBySurname(workers, surname);
                                         generateSummaryWorker(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
 
                                     } else if (filterSection.find("Hiring date") != std::string::npos or
@@ -369,8 +373,11 @@ int main() {
                                         std::string hiringDate;
                                         std::cin >> hiringDate;
 
+
                                         std::vector<Worker> filteredItems = filterWorkersByHiringDate(workers,hiringDate);
                                         generateSummaryWorker(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
                                     } else if (filter.find("Cancel") != std::string::npos or
                                                filter.find("CANCEL") != std::string::npos or
@@ -406,6 +413,8 @@ int main() {
 
                                         std::vector<Item> filteredItems = filterItemsByName(items, name);
                                         generateSummaryItem(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
 
                                     } else if (filterSection.find("Price") != std::string::npos or
@@ -418,6 +427,8 @@ int main() {
 
                                         std::vector<Item> filteredItems = filterItemsByPrice(items, price);
                                         generateSummaryItem(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
 
                                     } else if (filterSection.find("Quantity") != std::string::npos or
@@ -430,6 +441,8 @@ int main() {
 
                                         std::vector<Item> filteredItems = filterItemsByQuantity(items, quantity);
                                         generateSummaryItem(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
                                     } else if (filter.find("Cancel") != std::string::npos or
                                                filter.find("CANCEL") != std::string::npos or
@@ -465,6 +478,8 @@ int main() {
 
                                         std::vector<Shelf> filteredItems = filterShelfsByLocationX(shelfs, locationx);
                                         generateSummaryShelf(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
 
                                     } else if (filterSection.find("LocationY") != std::string::npos or
@@ -477,6 +492,8 @@ int main() {
 
                                         std::vector<Shelf> filteredItems = filterShelfsByLocationY(shelfs, locationy);
                                         generateSummaryShelf(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
 
                                     } else if (filterSection.find("LocationZ") != std::string::npos or
@@ -489,6 +506,8 @@ int main() {
 
                                         std::vector<Shelf> filteredItems = filterShelfsByLocationZ(shelfs, locationz);
                                         generateSummaryShelf(filteredItems);
+                                        system("pause");
+                                        system("cls");
 
                                     } else if (filter.find("Cancel") != std::string::npos or
                                                filter.find("CANCEL") != std::string::npos or
@@ -636,6 +655,8 @@ int main() {
                                     std::cin >> sortField;
                                     sortWorkers(workers, sortField);
                                     generateSummaryWorker(workers);
+                                    system("pause");
+                                    system("cls");
                                     goto sort_in;
 
                                 } else if (sort.find("Item") != std::string::npos or
@@ -647,6 +668,8 @@ int main() {
                                     std::cin >> sortField;
                                     sortItems(items, sortField);
                                     generateSummaryItem(items);
+                                    system("pause");
+                                    system("cls");
                                     goto sort_in;
 
                                 } else if (sort.find("Shelf") != std::string::npos or
@@ -658,6 +681,8 @@ int main() {
                                     std::cin >> sortField;
                                     sortShelfs(shelfs, sortField);
                                     generateSummaryShelf(shelfs);
+                                    system("pause");
+                                    system("cls");
                                     goto sort_in;
 
                                 } else if (sort.find("Cancel") != std::string::npos or
