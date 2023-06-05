@@ -538,6 +538,7 @@ int main() {
                                 system("pause");
                                 system("cls");
                                 search_in:
+                                system("cls");
                                 std::cout
                                         << "Enter table to search in (Worker/Item/Shelf) or write cancel to go back."
                                         << std::endl;
@@ -640,6 +641,8 @@ int main() {
                                     goto second_screen;
                                 } else {
                                     std::cout << "Invalid table" << std::endl;
+                                    system("pause");
+                                    system("cls");
                                     goto search_in;
                                 }
                             }
@@ -656,7 +659,7 @@ int main() {
                                     sort.find("WORKER") != std::string::npos or
                                     sort.find("worker") != std::string::npos) {
                                     std::cout << "TABLEWORKER" << std::endl;
-                                    std::cout << "Enter the sort field for workers (name, surname, hiring date): ";
+                                    std::cout << "Enter the sort field for workers (name, surname, hiringDate): ";
                                     std::string sortField;
                                     std::cin >> sortField;
                                     sortWorkers(workers, sortField);

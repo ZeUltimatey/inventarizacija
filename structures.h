@@ -781,7 +781,7 @@ void sortWorkers(std::vector<Worker> &workers, const std::string &sortField) {
         std::sort(workers.begin(), workers.end(), [](const Worker &a, const Worker &b) {
             return a.surname < b.surname;
         });
-    } else if (sortField == "hiring date") {
+    } else if (sortField == "hiringDate") {
         std::sort(workers.begin(), workers.end(), [](const Worker &a, const Worker &b) {
             return a.hiringDate < b.hiringDate;
         });
