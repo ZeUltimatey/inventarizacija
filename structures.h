@@ -107,6 +107,47 @@ public:
     }
 };
 
+void generateSummaryWorker(const std::vector<Worker>& Workers) {
+    std::cout << "Summary of the Worker Database:" << std::endl;
+    // Summary for the Worker table
+    std::cout << "Workers:" << std::endl;
+    for (const Worker& Worker : Workers) {
+        std::cout << "Worker ID: " << Worker.getID() << std::endl;
+        std::cout << "Name: " << Worker.getName() << std::endl;
+        std::cout << "Surname: " << Worker.getSurname() << std::endl;
+        std::cout << "Hiring Date: " << Worker.getHiringDate() << std::endl;
+        std::cout << std::endl;
+    }
+}
+
+void generateSummaryItem(const std::vector<Item>& items) {
+    std::cout << "Summary of the Item Database:" << std::endl;
+    // Summary for the Item table
+    std::cout << "Items:" << std::endl;
+    for (const Item& item : items) {
+        std::cout << "Item ID: " << item.getID() << std::endl;
+        std::cout << "Name: " << item.getName() << std::endl;
+        std::cout << "Worker ID: " << item.getWorkerID() << std::endl;
+        std::cout << "Price: " << item.getPrice() << std::endl;
+        std::cout << "Shelf ID: " << item.getShelfID() << std::endl;
+        std::cout << "Quantity: " << item.getQuantity() << std::endl;
+        std::cout << std::endl;
+    }
+}
+
+void generateSummaryShelf(const std::vector<Shelf>& shelves) {
+    std::cout << "Summary of the Shelf Database:" << std::endl;
+    // Summary for the Shelf table
+    std::cout << "Shelves:" << std::endl;
+    for (const Shelf& shelf : shelves) {
+        std::cout << "Shelf ID: " << shelf.getID() << std::endl;
+        std::cout << "LocationX: " << shelf.getLocationX() << std::endl;
+        std::cout << "LocationY: " << shelf.getLocationY() << std::endl;
+        std::cout << "LocationZ: " << shelf.getLocationZ() << std::endl;
+        std::cout << std::endl;
+    }
+}
+
 void readWorkersFromFile(const std::string& filename, std::vector<Worker>& workers) {
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -115,8 +156,9 @@ void readWorkersFromFile(const std::string& filename, std::vector<Worker>& worke
     }
 
     std::string line;
-    std::getline(file, line); // Skip the header line
-
+    for(int i = 0; i < 5; i++) {
+        std::getline(file, line); // Skip the header line
+    }
     while (std::getline(file, line)) {
         Worker worker("", "", "", "");
         std::string id, name, surname, hiringDate;
@@ -125,18 +167,22 @@ void readWorkersFromFile(const std::string& filename, std::vector<Worker>& worke
         std::size_t start = line.find("||") + 2;
         std::size_t end = line.find("||", start);
         id = line.substr(start, end - start);
+        id.erase(remove(id.begin(), id.end(), ' '), id.end());
 
         start = end + 2;
         end = line.find("||", start);
         name = line.substr(start, end - start);
+        name.erase(remove(name.begin(), name.end(), ' '), name.end());
 
         start = end + 2;
         end = line.find("||", start);
         surname = line.substr(start, end - start);
+        surname.erase(remove(surname.begin(), surname.end(), ' '), surname.end());
 
         start = end + 2;
         end = line.find("||", start);
         hiringDate = line.substr(start, end - start);
+        hiringDate.erase(remove(hiringDate.begin(), hiringDate.end(), ' '), hiringDate.end());
 
         // Convert necessary data types
         worker.id = id;
@@ -159,8 +205,9 @@ void readItemFromFile(const std::string& filename, std::vector<Item>& items) {
     }
 
     std::string line;
-    std::getline(file, line); // Skip the header line
-
+    for(int i = 0; i < 5; i++) {
+        std::getline(file, line); // Skip the header line
+    }
     while (std::getline(file, line)) {
         Item item("", "", "", "", "", "");
         std::string id, name, workerID, price, shelfID, quantity;
@@ -214,8 +261,9 @@ void readShelfFromFile(const std::string& filename, std::vector<Shelf>& shelfs) 
     }
 
     std::string line;
-    std::getline(file, line); // Skip the header line
-
+    for(int i = 0; i < 5; i++) {
+        std::getline(file, line); // Skip the header line
+    }
     while (std::getline(file, line)) {
         Shelf shelf("", "", "", "");
         std::string id, locationX, locationY, locationZ;
@@ -248,47 +296,6 @@ void readShelfFromFile(const std::string& filename, std::vector<Shelf>& shelfs) 
     }
 
     file.close();
-}
-
-void generateSummaryWorker(const std::vector<Worker>& Workers) {
-    std::cout << "Summary of the Worker Database:" << std::endl;
-    // Summary for the Worker table
-    std::cout << "Workers:" << std::endl;
-    for (const Worker& Worker : Workers) {
-        std::cout << "Worker ID: " << Worker.getID() << std::endl;
-        std::cout << "Name: " << Worker.getName() << std::endl;
-        std::cout << "Surname: " << Worker.getSurname() << std::endl;
-        std::cout << "Hiring Date: " << Worker.getHiringDate() << std::endl;
-        std::cout << std::endl;
-    }
-}
-
-void generateSummaryItem(const std::vector<Item>& items) {
-    std::cout << "Summary of the Item Database:" << std::endl;
-    // Summary for the Item table
-    std::cout << "Items:" << std::endl;
-    for (const Item& item : items) {
-        std::cout << "Item ID: " << item.getID() << std::endl;
-        std::cout << "Name: " << item.getName() << std::endl;
-        std::cout << "Worker ID: " << item.getWorkerID() << std::endl;
-        std::cout << "Price: " << item.getPrice() << std::endl;
-        std::cout << "Shelf ID: " << item.getShelfID() << std::endl;
-        std::cout << "Quantity: " << item.getQuantity() << std::endl;
-        std::cout << std::endl;
-    }
-}
-
-void generateSummaryShelf(const std::vector<Shelf>& shelves) {
-    std::cout << "Summary of the Shelf Database:" << std::endl;
-    // Summary for the Shelf table
-    std::cout << "Shelves:" << std::endl;
-    for (const Shelf& shelf : shelves) {
-        std::cout << "Shelf ID: " << shelf.getID() << std::endl;
-        std::cout << "LocationX: " << shelf.getLocationX() << std::endl;
-        std::cout << "LocationY: " << shelf.getLocationY() << std::endl;
-        std::cout << "LocationZ: " << shelf.getLocationZ() << std::endl;
-        std::cout << std::endl;
-    }
 }
 
 bool fileExists (const std::string& name) {
@@ -463,4 +470,95 @@ bool loginUser(const std::vector<User>& users) {
         }
     }
     return false;
+}
+
+
+std::vector<Worker> filterWorkersByName(const std::vector<Worker>& workers, const std::string& name) {
+    std::vector<Worker> filteredWorkers;
+    for (const auto& worker : workers) {
+        if (worker.name == name) {
+            filteredWorkers.push_back(worker);
+        }
+    }
+    return filteredWorkers;
+}
+
+std::vector<Worker> filterWorkersBySurname(const std::vector<Worker>& workers, const std::string& surname) {
+    std::vector<Worker> filteredWorkers;
+    for (const auto& worker : workers) {
+        if (worker.surname == surname) {
+            filteredWorkers.push_back(worker);
+        }
+    }
+    return filteredWorkers;
+}
+
+std::vector<Worker> filterWorkersByHiringDate(const std::vector<Worker>& workers, const std::string& hiringDate) {
+    std::vector<Worker> filteredWorkers;
+    for (const auto& worker : workers) {
+        if (worker.hiringDate == hiringDate) {
+            filteredWorkers.push_back(worker);
+        }
+    }
+    return filteredWorkers;
+}
+
+std::vector<Item> filterItemsByName(const std::vector<Item>& items, const std::string& name) {
+    std::vector<Item> filteredItems;
+    for (const auto& item : items) {
+        if (item.name == name) {
+            filteredItems.push_back(item);
+        }
+    }
+    return filteredItems;
+}
+
+std::vector<Item> filterItemsByPrice(const std::vector<Item>& items, double maxPrice) {
+    std::vector<Item> filteredItems;
+    for (const auto& item : items) {
+        if (std::stod(item.price) <= maxPrice) {
+            filteredItems.push_back(item);
+        }
+    }
+    return filteredItems;
+}
+
+std::vector<Item> filterItemsByQuantity(const std::vector<Item>& items, int quantity) {
+    std::vector<Item> filteredItems;
+    for (const auto& item : items) {
+        if (std::stoi(item.quantity) == quantity) {
+            filteredItems.push_back(item);
+        }
+    }
+    return filteredItems;
+}
+
+std::vector<Shelf> filterShelfsByLocationX(const std::vector<Shelf>& shelfs, int locationX) {
+    std::vector<Shelf> filteredItems;
+    for (const auto& shelf : shelfs) {
+        if (std::stoi(shelf.locationX) == locationX) {
+            filteredItems.push_back(shelf);
+        }
+    }
+    return filteredItems;
+}
+
+std::vector<Shelf> filterShelfsByLocationY(const std::vector<Shelf>& shelfs, int locationY) {
+    std::vector<Shelf> filteredItems;
+    for (const auto& shelf : shelfs) {
+        if (std::stoi(shelf.locationY) == locationY) {
+            filteredItems.push_back(shelf);
+        }
+    }
+    return filteredItems;
+}
+
+std::vector<Shelf> filterShelfsByLocationZ(const std::vector<Shelf>& shelfs, int locationZ) {
+    std::vector<Shelf> filteredItems;
+    for (const auto& shelf : shelfs) {
+        if (std::stoi(shelf.locationZ) == locationZ) {
+            filteredItems.push_back(shelf);
+        }
+    }
+    return filteredItems;
 }

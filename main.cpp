@@ -204,8 +204,8 @@ int main()
     readWorkersFromFile("worker.txt", workers);
     std::vector<Item> items;
     readItemFromFile("item.txt", items);
-    std::vector<Shelf> shelves;
-    readShelfFromFile("shelf.txt", shelves);
+    std::vector<Shelf> shelfs;
+    readShelfFromFile("shelf.txt", shelfs);
     login_screen:
     system("pause");
     system("cls");
@@ -526,22 +526,205 @@ int main()
                                         filter.find("WORKER") != std::string::npos or
                                         filter.find("worker") != std::string::npos) {
                                         std::cout << "TABLEWORKER" << std::endl;
+                                        std::cout
+                                                << "Enter section to filter in (Name/Surname/Hiring date) or write cancel to go back."
+                                                << std::endl;
+                                        std::string filterSection;
+                                        std::cin >> filterSection;
+
+                                        if (filterSection.find("Name") != std::string::npos or
+                                                filterSection.find("NAME") != std::string::npos or
+                                                filterSection.find("name") != std::string::npos) {
+                                            std::cout << "Section name" << std::endl;
+                                            std::cout << "Enter the filter for name section:" << std::endl;
+                                            std::string name;
+                                            std::cin >> name;
+
+                                            std::vector<Worker> filteredItems = filterWorkersByName(workers, name);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& worker : filteredItems) {
+                                                std::cout << worker.name << std::endl;
+                                            }
+
+                                        } else if (filterSection.find("Surname") != std::string::npos or
+                                                filterSection.find("SURNAME") != std::string::npos or
+                                                filterSection.find("surname") != std::string::npos) {
+                                            std::cout << "Section surname" << std::endl;
+                                            std::cout << "Enter the filter for surname section:" << std::endl;
+                                            std::string surname;
+                                            std::cin >> surname;
+
+                                            std::vector<Worker> filteredItems = filterWorkersBySurname(workers, surname);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& worker : filteredItems) {
+                                                std::cout << worker.surname << std::endl;
+                                            }
+
+                                        } else if (filterSection.find("Hiring date") != std::string::npos or
+                                                filterSection.find("HIRING DATE") != std::string::npos or
+                                                filterSection.find("hiring Date") != std::string::npos) {
+                                            std::cout << "Section hiring date" << std::endl;
+                                            std::cout << "Enter the filter for hiring date section:" << std::endl;
+                                            std::string hiringDate;
+                                            std::cin >> hiringDate;
+
+                                            std::vector<Worker> filteredItems = filterWorkersByHiringDate(workers, hiringDate);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& worker : filteredItems) {
+                                                std::cout << worker.hiringDate << std::endl;
+                                            }
+
+                                        }else if (filter.find("Cancel") != std::string::npos or
+                                                  filter.find("CANCEL") != std::string::npos or
+                                                  filter.find("cancel") != std::string::npos) {
+                                            std::cout << "Cancelling action..." << std::endl;
+                                            goto second_screen;
+
+                                        } else {
+                                            std::cout << "Invalid table" << std::endl;
+                                            goto filter_in;
+                                        }
+
                                         goto filter_in;
+
                                     } else if (filter.find("Item") != std::string::npos or
                                                filter.find("ITEM") != std::string::npos or
                                                filter.find("item") != std::string::npos) {
                                         std::cout << "TABLEITEM" << std::endl;
+
+                                        std::cout
+                                                << "Enter section to filter in (Name/Price/Quantity) or write cancel to go back."
+                                                << std::endl;
+                                        std::string filterSection;
+                                        std::cin >> filterSection;
+
+                                        if (filterSection.find("Name") != std::string::npos or
+                                            filterSection.find("NAME") != std::string::npos or
+                                            filterSection.find("name") != std::string::npos) {
+                                            std::cout << "Section name" << std::endl;
+                                            std::cout << "Enter the filter for name section:" << std::endl;
+                                            std::string name;
+                                            std::cin >> name;
+
+                                            std::vector<Item> filteredItems = filterItemsByName(items, name);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& item : filteredItems) {
+                                                std::cout << item.name << std::endl;
+                                            }
+
+                                        } else if (filterSection.find("Price") != std::string::npos or
+                                                   filterSection.find("PRICE") != std::string::npos or
+                                                   filterSection.find("price") != std::string::npos) {
+                                            std::cout << "Section price" << std::endl;
+                                            std::cout << "Enter the filter for price section:" << std::endl;
+                                            double price;
+                                            std::cin >> price;
+
+                                            std::vector<Item> filteredItems = filterItemsByPrice(items, price);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& item : filteredItems) {
+                                                std::cout << item.price << std::endl;
+                                            }
+
+                                        } else if (filterSection.find("Quantity") != std::string::npos or
+                                                   filterSection.find("QUANTITY") != std::string::npos or
+                                                   filterSection.find("quantity") != std::string::npos) {
+                                            std::cout << "Section hiring date" << std::endl;
+                                            std::cout << "Enter the filter for hiring date section:" << std::endl;
+                                            int quantity;
+                                            std::cin >> quantity;
+
+                                            std::vector<Item> filteredItems = filterItemsByQuantity(items, quantity);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& item : filteredItems) {
+                                                std::cout << item.quantity << std::endl;
+                                            }
+
+                                        }else if (filter.find("Cancel") != std::string::npos or
+                                                  filter.find("CANCEL") != std::string::npos or
+                                                  filter.find("cancel") != std::string::npos) {
+                                            std::cout << "Cancelling action..." << std::endl;
+                                            goto second_screen;
+
+                                        } else {
+                                            std::cout << "Invalid table" << std::endl;
+                                            goto filter_in;
+                                        }
+
                                         goto filter_in;
+
                                     } else if (filter.find("Shelf") != std::string::npos or
                                                filter.find("SHELF") != std::string::npos or
                                                filter.find("shelf") != std::string::npos) {
                                         std::cout << "TABLESHELF" << std::endl;
+
+                                        std::cout
+                                                << "Enter section to filter in (LocationX/LocationY/LocationZ) or write cancel to go back."
+                                                << std::endl;
+                                        std::string filterSection;
+                                        std::cin >> filterSection;
+
+                                        if (filterSection.find("LocationX") != std::string::npos or
+                                            filterSection.find("LOCATIONX") != std::string::npos or
+                                            filterSection.find("locationx") != std::string::npos) {
+                                            std::cout << "Section LocationX" << std::endl;
+                                            std::cout << "Enter the filter for LocationX section:" << std::endl;
+                                            int locationx;
+                                            std::cin >> locationx;
+
+                                            std::vector<Shelf> filteredItems = filterShelfsByLocationX(shelfs, locationx);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& shelf : filteredItems) {
+                                                std::cout << shelf.locationX << std::endl;
+                                            }
+
+                                        } else if (filterSection.find("LocationY") != std::string::npos or
+                                                   filterSection.find("LOCATIONY") != std::string::npos or
+                                                   filterSection.find("locationy") != std::string::npos) {
+                                            std::cout << "Section LocationY" << std::endl;
+                                            std::cout << "Enter the filter for LocationY section:" << std::endl;
+                                            int locationy;
+                                            std::cin >> locationy;
+
+                                            std::vector<Shelf> filteredItems = filterShelfsByLocationY(shelfs, locationy);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& shelf : filteredItems) {
+                                                std::cout << shelf.locationY << std::endl;
+                                            }
+
+                                        } else if (filterSection.find("LocationZ") != std::string::npos or
+                                                   filterSection.find("LOCATIONZ") != std::string::npos or
+                                                   filterSection.find("locationz") != std::string::npos) {
+                                            std::cout << "Section LocationZ" << std::endl;
+                                            std::cout << "Enter the filter for LocationZ section:" << std::endl;
+                                            int locationz;
+                                            std::cin >> locationz;
+
+                                            std::vector<Shelf> filteredItems = filterShelfsByLocationZ(shelfs, locationz);
+                                            // Display the names of the filtered shelves
+                                            for (const auto& shelf : filteredItems) {
+                                                std::cout << shelf.locationZ << std::endl;
+                                            }
+
+                                        }else if (filter.find("Cancel") != std::string::npos or
+                                                  filter.find("CANCEL") != std::string::npos or
+                                                  filter.find("cancel") != std::string::npos) {
+                                            std::cout << "Cancelling action..." << std::endl;
+                                            goto second_screen;
+
+                                        } else {
+                                            std::cout << "Invalid table" << std::endl;
+                                            goto filter_in;
+                                        }
+
                                         goto filter_in;
+
                                     } else if (filter.find("Cancel") != std::string::npos or
                                                filter.find("CANCEL") != std::string::npos or
                                                filter.find("cancel") != std::string::npos) {
                                         std::cout << "Cancelling action..." << std::endl;
                                         goto second_screen;
+
                                     } else {
                                         std::cout << "Invalid table" << std::endl;
                                         goto filter_in;
@@ -558,14 +741,22 @@ int main()
                                         search.find("WORKER") != std::string::npos or
                                         search.find("worker") != std::string::npos) {
                                         std::cout << "TABLEWORKER" << std::endl;
+                                        //generateSummaryWorker(workers);
                                         // Perform a search
                                         std::string searchID;
                                         std::cout << "Enter the ID to search: ";
                                         std::cin >> searchID;
                                         // Search for a worker
                                         Worker foundWorker = searchWorkerByID(workers, searchID);
-                                        if (foundWorker.getID() != "") {
-                                            std::cout << "Worker found: " << foundWorker.getName() << std::endl;
+                                        if (!foundWorker.getID().empty()) {
+                                            std::cout << "=======================================DATABASE: WORKER.TXT=======================================" << std::endl;
+                                            std::cout << "==================================================================================================" << std::endl;
+                                            std::cout << "||          ID          ||         NAME         ||       SUR-NAME       ||     WORKER SINCE     ||" << std::endl;
+                                            std::cout << "==================================================================================================" << std::endl;
+                                            std::cout << foundWorker.getID() << "||";
+                                            std::cout << foundWorker.getName() << "||";
+                                            std::cout << foundWorker.getSurname() << "||";
+                                            std::cout << foundWorker.getHiringDate() << "||" << std::endl;
                                         }
                                         else {
                                             std::cout << "Worker not found." << std::endl;
@@ -575,14 +766,24 @@ int main()
                                                search.find("ITEM") != std::string::npos or
                                                search.find("item") != std::string::npos) {
                                         std::cout << "TABLEITEM" << std::endl;
+                                        //generateSummaryItem(items);
                                         // Perform a search
                                         std::string searchID;
                                         std::cout << "Enter the ID to search: ";
                                         std::cin >> searchID;
                                         // Search for an item
                                         Item foundItem = searchItemByID(items, searchID);
-                                        if (foundItem.getID() != "") {
-                                            std::cout << "Item found: " << foundItem.getName() << std::endl;
+                                        if (!foundItem.getID().empty()) {
+                                            std::cout << "================================================================DATABASE: ITEM.TXT================================================================" << std::endl;
+                                            std::cout << "==================================================================================================================================================" << std::endl;
+                                            std::cout << "||          ID          ||         NAME         ||      STOCKED BY      ||         VALUE        ||       SHELF ID       ||          QTY         ||" << std::endl;
+                                            std::cout << "==================================================================================================================================================" << std::endl;
+                                            std::cout << foundItem.getID() << "||";
+                                            std::cout << foundItem.getName() << "||";
+                                            std::cout << foundItem.getWorkerID() << "||";
+                                            std::cout << foundItem.getPrice() << "||";
+                                            std::cout << foundItem.getShelfID() << "||";
+                                            std::cout << foundItem.getQuantity() << "||" << std::endl;
                                         }
                                         else {
                                             std::cout << "Item not found." << std::endl;
@@ -592,14 +793,22 @@ int main()
                                                search.find("SHELF") != std::string::npos or
                                                search.find("shelf") != std::string::npos) {
                                         std::cout << "TABLESHELF" << std::endl;
+                                        //generateSummaryShelf(shelves);
                                         // Perform a search
                                         std::string searchID;
                                         std::cout << "Enter the ID to search: ";
                                         std::cin >> searchID;
                                         // Search for a shelf
-                                        Shelf foundShelf = searchShelfByID(shelves, searchID);
-                                        if (foundShelf.getID() != "") {
-                                            std::cout << "Shelf found: " << foundShelf.getID() << std::endl;
+                                        Shelf foundShelf = searchShelfByID(shelfs, searchID);
+                                        if (!foundShelf.getID().empty()) {
+                                            std::cout << "========================================DATABASE: SHELF.TXT=======================================" << std::endl;
+                                            std::cout << "==================================================================================================" << std::endl;
+                                            std::cout << "||          ID          ||       SECTION.X      ||       SECTION.Y      ||       SECTION.Z      ||" << std::endl;
+                                            std::cout << "==================================================================================================" << std::endl;
+                                            std::cout << foundShelf.getID() << "||";
+                                            std::cout << foundShelf.getLocationX() << "||";
+                                            std::cout << foundShelf.getLocationY() << "||";
+                                            std::cout << foundShelf.getLocationZ() << "||" << std::endl;
                                         }
                                         else {
                                             std::cout << "Shelf not found." << std::endl;
