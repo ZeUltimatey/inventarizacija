@@ -567,6 +567,8 @@ int main() {
                                                 << "=================================================================================================="
                                                 << std::endl;
                                         std::cout << "||" << foundWorker.getID() << "||" << foundWorker.getName() << "||" << foundWorker.getSurname() << "||" << foundWorker.getHiringDate() << "||" << std::endl;
+                                        system("pause");
+                                        system("cls");
                                     } else {
                                         std::cout << "Worker not found." << std::endl;
                                     }
@@ -595,6 +597,8 @@ int main() {
                                                 << "=================================================================================================================================================="
                                                 << std::endl;
                                         std::cout << "||" << foundItem.getID() << "||" << foundItem.getName() << "||" << foundItem.getWorkerID() << "||" << foundItem.getPrice() << "||" << foundItem.getShelfID() << "||" << foundItem.getQuantity() << "||" << std::endl;
+                                        system("pause");
+                                        system("cls");
                                     } else {
                                         std::cout << "Item not found." << std::endl;
                                     }
@@ -623,6 +627,8 @@ int main() {
                                                 << "=================================================================================================="
                                                 << std::endl;
                                         std::cout << "||" << foundShelf.getID() << "||" << foundShelf.getLocationX() << "||" << foundShelf.getLocationY() << "||" << foundShelf.getLocationZ() << "||" << std::endl;
+                                        system("pause");
+                                        system("cls");
                                     } else {
                                         std::cout << "Shelf not found." << std::endl;
                                     }

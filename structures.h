@@ -594,7 +594,7 @@ void writeUsersToFile(const std::vector<User> &users) {
     std::ofstream file("users.txt", std::ios::out);
     if (file.is_open()) {
         for (const User &user: users) {
-            file << user.username << "||" << user.password << std::endl;
+            file << std::endl << user.username << "||" << user.password << std::endl;
         }
         file.close();
     }
