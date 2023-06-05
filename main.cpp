@@ -332,7 +332,7 @@ int main() {
                                     filter.find("worker") != std::string::npos) {
                                     std::cout << "TABLEWORKER" << std::endl;
                                     std::cout
-                                            << "Enter section to filter in (Name/Surname/Hiring date) or write cancel to go back."
+                                            << "Enter section to filter in (Name/Surname/HiringDate) or write cancel to go back."
                                             << std::endl;
                                     std::string filterSection;
                                     std::cin >> filterSection;
@@ -365,16 +365,17 @@ int main() {
                                         system("cls");
 
 
-                                    } else if (filterSection.find("Hiring date") != std::string::npos or
-                                               filterSection.find("HIRING DATE") != std::string::npos or
-                                               filterSection.find("hiring Date") != std::string::npos) {
+                                    } else if (filterSection.find("HiringDate") != std::string::npos or
+                                               filterSection.find("HIRINGDATE") != std::string::npos or
+                                               filterSection.find("hiringdate") != std::string::npos) {
                                         std::cout << "Section hiring date" << std::endl;
                                         std::cout << "Enter the filter for hiring date section:" << std::endl;
                                         std::string hiringDate;
                                         std::cin >> hiringDate;
 
 
-                                        std::vector<Worker> filteredItems = filterWorkersByHiringDate(workers,hiringDate);
+                                        std::vector<Worker> filteredItems = filterWorkersByHiringDate(workers,
+                                                                                                      hiringDate);
                                         generateSummaryWorker(filteredItems);
                                         system("pause");
                                         system("cls");
@@ -567,7 +568,9 @@ int main() {
                                         std::cout
                                                 << "=================================================================================================="
                                                 << std::endl;
-                                        std::cout << "||" << foundWorker.getID() << "||" << foundWorker.getName() << "||" << foundWorker.getSurname() << "||" << foundWorker.getHiringDate() << "||" << std::endl;
+                                        std::cout << "||" << foundWorker.getID() << "||" << foundWorker.getName()
+                                                  << "||" << foundWorker.getSurname() << "||"
+                                                  << foundWorker.getHiringDate() << "||" << std::endl;
                                         system("pause");
                                         system("cls");
                                     } else {
@@ -597,7 +600,10 @@ int main() {
                                         std::cout
                                                 << "=================================================================================================================================================="
                                                 << std::endl;
-                                        std::cout << "||" << foundItem.getID() << "||" << foundItem.getName() << "||" << foundItem.getWorkerID() << "||" << foundItem.getPrice() << "||" << foundItem.getShelfID() << "||" << foundItem.getQuantity() << "||" << std::endl;
+                                        std::cout << "||" << foundItem.getID() << "||" << foundItem.getName() << "||"
+                                                  << foundItem.getWorkerID() << "||" << foundItem.getPrice() << "||"
+                                                  << foundItem.getShelfID() << "||" << foundItem.getQuantity() << "||"
+                                                  << std::endl;
                                         system("pause");
                                         system("cls");
                                     } else {
@@ -627,7 +633,9 @@ int main() {
                                         std::cout
                                                 << "=================================================================================================="
                                                 << std::endl;
-                                        std::cout << "||" << foundShelf.getID() << "||" << foundShelf.getLocationX() << "||" << foundShelf.getLocationY() << "||" << foundShelf.getLocationZ() << "||" << std::endl;
+                                        std::cout << "||" << foundShelf.getID() << "||" << foundShelf.getLocationX()
+                                                  << "||" << foundShelf.getLocationY() << "||"
+                                                  << foundShelf.getLocationZ() << "||" << std::endl;
                                         system("pause");
                                         system("cls");
                                     } else {
@@ -706,10 +714,12 @@ int main() {
                                 }
                             }
                             case 4: {
-                                system("pause");
-                                system("cls");
                                 goto second_screen;
+
                             }
+                            default:
+                                std::cout << "Invalid selection" << std::endl;
+                                goto second_screen;
                         }
                     }
                     case 3: { // User chose Display
@@ -751,12 +761,16 @@ int main() {
                                 }
                             }
                             default:
+                                std::cout << "Invalid selection" << std::endl;
                                 goto second_screen;
                         }
                     }
                     case 4: {
                         goto login_screen;
                     }
+                    default:
+                        std::cout << "Invalid selection" << std::endl;
+                        goto second_screen;
                 }
             } else {
                 std::cout << "Invalid username or password." << std::endl;

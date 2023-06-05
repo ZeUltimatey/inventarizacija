@@ -212,7 +212,7 @@ int SearchOrFilterScreen() {
 
     int answer;
     std::cin >> answer;
-    while (std::cin.fail() or answer != 1 and answer != 2 and answer != 3) {
+    while (std::cin.fail() or answer != 1 and answer != 2 and answer != 3 and answer != 4){
         std::cout << "Error" << std::endl;
         std::cin.clear();
         std::cin.ignore(256, '\n');
@@ -736,39 +736,41 @@ std::vector<Shelf> filterShelfsByLocationZ(const std::vector<Shelf> &shelfs, int
     return filteredItems;
 }
 
-void printWorkers(const std::vector<Worker>& workers) {
+void printWorkers(const std::vector<Worker> &workers) {
     if (workers.empty()) {
         std::cout << "No workers found with the specified role." << std::endl;
         return;
     }
 
     std::cout << "Workers matching the filter criteria:" << std::endl;
-    for (const auto& worker : workers) {
-        std::cout << "Name: " << worker.name << ", Age: " << worker.surname << ", Role: " << worker.hiringDate << std::endl;
+    for (const auto &worker: workers) {
+        std::cout << "Name: " << worker.name << ", Age: " << worker.surname << ", Role: " << worker.hiringDate
+                  << std::endl;
     }
 }
 
-void printItems(const std::vector<Item>& items) {
+void printItems(const std::vector<Item> &items) {
     if (items.empty()) {
         std::cout << "No items found within the specified price range." << std::endl;
         return;
     }
 
     std::cout << "Items matching the filter criteria:" << std::endl;
-    for (const auto& item : items) {
+    for (const auto &item: items) {
         std::cout << "Name: " << item.name << ", Price: " << item.price << ", Quantity: " << item.quantity << std::endl;
     }
 }
 
-void printShelfs(const std::vector<Shelf>& shelfs) {
+void printShelfs(const std::vector<Shelf> &shelfs) {
     if (shelfs.empty()) {
         std::cout << "No items found within the specified price range." << std::endl;
         return;
     }
 
     std::cout << "Items matching the filter criteria:" << std::endl;
-    for (const auto& shelf : shelfs) {
-        std::cout << "locationX: " << shelf.locationX << ", locationY: " << shelf.locationY << ", locationZ: " << shelf.locationZ << std::endl;
+    for (const auto &shelf: shelfs) {
+        std::cout << "locationX: " << shelf.locationX << ", locationY: " << shelf.locationY << ", locationZ: "
+                  << shelf.locationZ << std::endl;
     }
 }
 
@@ -842,7 +844,8 @@ void generateSummaryWorker(const std::vector<Worker> &Workers) {
             << std::endl;
     // Summary for the Worker table
     for (const Worker &Worker: Workers) {
-        std::cout << "||" << Worker.getID() << "||" << Worker.getName() << "||" << Worker.getSurname() << "||" << Worker.getHiringDate() << "||" << std::endl;
+        std::cout << "||" << Worker.getID() << "||" << Worker.getName() << "||" << Worker.getSurname() << "||"
+                  << Worker.getHiringDate() << "||" << std::endl;
     }
 }
 
@@ -861,7 +864,8 @@ void generateSummaryItem(const std::vector<Item> &items) {
             << std::endl;
     // Summary for the Item table
     for (const Item &item: items) {
-        std::cout << "||" << item.getID() << "||" << item.getName() << "||" << item.getWorkerID() << "||" << item.getPrice() << "||" << item.getShelfID() << "||" << item.getQuantity() << "||" << std::endl;
+        std::cout << "||" << item.getID() << "||" << item.getName() << "||" << item.getWorkerID() << "||"
+                  << item.getPrice() << "||" << item.getShelfID() << "||" << item.getQuantity() << "||" << std::endl;
     }
 }
 
@@ -880,6 +884,7 @@ void generateSummaryShelf(const std::vector<Shelf> &shelves) {
             << std::endl;
     // Summary for the Shelf table
     for (const Shelf &shelf: shelves) {
-        std::cout << "||" << shelf.getID() << "||"<< shelf.getLocationX() << "||"<< shelf.getLocationY() << "||"<< shelf.getLocationZ() << "||" << std::endl;
+        std::cout << "||" << shelf.getID() << "||" << shelf.getLocationX() << "||" << shelf.getLocationY() << "||"
+                  << shelf.getLocationZ() << "||" << std::endl;
     }
 }
